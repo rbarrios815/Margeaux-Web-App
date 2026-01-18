@@ -100,6 +100,11 @@
       color: var(--love-muted);
     }
 
+    .card h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
     .field-row {
       display: flex;
       flex-wrap: wrap;
@@ -213,6 +218,32 @@
       white-space: pre-wrap;
     }
 
+    .research-list,
+    .ritual-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      color: var(--love-muted);
+      font-size: 14px;
+    }
+
+    .research-list a {
+      color: var(--love-purple);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .research-list a:hover {
+      text-decoration: underline;
+    }
+
+    .topic-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
     .love-meter {
       display: flex;
       align-items: center;
@@ -278,7 +309,7 @@
           <span>💗</span>
           <div>
             <h1>Sunday Love Dashboard</h1>
-            <p>Plan a tender moment, write a note, and keep your love rituals grounded.</p>
+            <p>Plan a tender moment, write a note, and keep your love rituals bright, brave, and full of heart.</p>
           </div>
         </div>
         <div class="hero-date">
@@ -289,6 +320,32 @@
   </header>
 
   <main class="shell">
+    <section class="card">
+      <h2>Topic of the Hour: Shared Appreciation + Positive Bids</h2>
+      <p>Tonight is about noticing the good, turning toward each other, and building more “us.” Pick one paper to skim and one ritual to try together.</p>
+      <div class="topic-grid">
+        <div>
+          <h3>Top 5 research papers</h3>
+          <ul class="research-list">
+            <li><a href="https://psycnet.apa.org/record/1987-20059-001" target="_blank" rel="noopener">Hazan &amp; Shaver (1987) — Romantic love conceptualized as an attachment process.</a></li>
+            <li><a href="https://doi.org/10.1037/0022-3514.63.4.596" target="_blank" rel="noopener">Aron et al. (1992) — The Inclusion of Other in the Self scale and the structure of interpersonal closeness.</a></li>
+            <li><a href="https://doi.org/10.1177/0146167297233003" target="_blank" rel="noopener">Aron et al. (1997) — The experimental generation of interpersonal closeness.</a></li>
+            <li><a href="https://doi.org/10.1037/0022-3514.87.2.228" target="_blank" rel="noopener">Gable et al. (2004) — Supportive responses to positive event disclosures (capitalization).</a></li>
+            <li><a href="https://doi.org/10.1111/j.1475-6811.2010.01273.x" target="_blank" rel="noopener">Algoe et al. (2010) — Everyday gratitude as a booster shot for romantic relationships.</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Research-backed rituals</h3>
+          <ul class="ritual-list">
+            <li>Practice “active-constructive responding”: when one of you shares good news, ask follow-up questions and celebrate together.</li>
+            <li>Try a 10-minute “fast friends” round: alternate answering a deep question and a playful one.</li>
+            <li>Do a micro-gratitude swap: each share one specific thing the other did today and how it made you feel.</li>
+            <li>End the day with a “turning toward” moment: choose a tiny bid for connection and say yes.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="card">
       <h2>Love Note Builder</h2>
       <p>Capture a note for her voice, a soft delivery, and today’s love level.</p>
@@ -332,7 +389,7 @@
 
     <section class="card">
       <h2>Love Prompts</h2>
-      <p>Tap for quick ideas or add them directly into your note.</p>
+      <p>Tap for quick ideas or add them directly into your note. Mix deep, playful, and personality-rich prompts.</p>
       <div class="prompt-grid" id="promptGrid"></div>
     </section>
 
@@ -351,13 +408,15 @@
         'Write a “three tiny moments” note: three small things she did this week that made you love her more.',
         'Offer a future memory: describe a date night you want to plan, with sensory details and a sweet promise.',
         'List five ways she makes you feel safe, seen, and wanted—and why those are rare and precious.',
-        'Write a “thank you for choosing us” note that highlights her effort when things were hard.'
+        'Write a “thank you for choosing us” note that highlights her effort when things were hard.',
+        'Write a “we’re growing” note: name one place you’ve both grown and what you want to nurture next.'
       ],
       conversationStarters: [
         'When do you feel most loved by me lately—and what can I do more of in that moment?',
         'What’s one new ritual we could try to deepen our connection on busy weeks?',
         'What’s a memory you want to relive together, and how can we recreate it?',
-        'How can we make conflict feel safer and more tender when it shows up?'
+        'How can we make conflict feel safer and more tender when it shows up?',
+        'What’s one part of me you want to understand better this season?'
       ],
       commitmentReminders: [
         'Show up even when it’s hard: pause, breathe, and respond with love before reacting.',
@@ -369,7 +428,23 @@
         'We are stronger than the tough moments because we keep choosing each other.',
         'You are my peace and my favorite person to come home to.',
         'We’re building something lasting—and I’m proud of us.',
-        'We can do hard things and still stay kind.'
+        'We can do hard things and still stay kind.',
+        'I believe in us, even on the wobbly days.'
+      ],
+      personalitySparks: [
+        'Which of our personality strengths showed up today (curiosity, calm, playfulness, courage)? How can we celebrate it?',
+        'What’s one quirky habit of mine you secretly love—and why do you think it works for us?',
+        'If our love had a theme song, what would it be and what does it say about us?'
+      ],
+      deepDives: [
+        'Share a memory from childhood that shaped how you want to be loved now.',
+        'What fear do you want me to understand better, and how can I show up for it?',
+        'What does “safe love” feel like in your body? Describe it in detail.'
+      ],
+      sillySparks: [
+        'If our relationship were a road trip, what snack would we be and why?',
+        'Invent a ridiculous couple mascot and give it a catchphrase.',
+        'Plan a pretend date with a $5 budget and a totally over-the-top dress code.'
       ]
     };
 
@@ -377,7 +452,10 @@
       noteIdeas: 'Love note idea',
       conversationStarters: 'Conversation starter',
       commitmentReminders: 'Commitment reminder',
-      encouragements: 'Encouragement'
+      encouragements: 'Encouragement',
+      personalitySparks: 'Personality spark',
+      deepDives: 'Deep dive',
+      sillySparks: 'Silly spark'
     };
 
     const noteInput = document.getElementById('loveNoteInput');
@@ -470,6 +548,9 @@ ${text}`
       const encouragement = pickRandom(prompts.encouragements);
       const commitment = pickRandom(prompts.commitmentReminders);
       const conversation = pickRandom(prompts.conversationStarters);
+      const personality = pickRandom(prompts.personalitySparks);
+      const deepDive = pickRandom(prompts.deepDives);
+      const silly = pickRandom(prompts.sillySparks);
       const deliveryLine = delivery === 'playful'
         ? 'Here’s a playful little love note from the heart:'
         : delivery === 'romantic'
@@ -485,6 +566,9 @@ ${text}`
         encouragement,
         `We stay 100% in this together: ${commitment}`,
         `Conversation starter for us: ${conversation}`,
+        `Personality spark: ${personality}`,
+        `Deep dive: ${deepDive}`,
+        `Silly spark: ${silly}`,
         intention ? `Intention for today: ${intention}.` : ''
       ].filter(Boolean).join('\n\n');
     };
