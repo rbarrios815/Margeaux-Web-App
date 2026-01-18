@@ -1,0 +1,569 @@
+<!-- Version 1.0.0 | c1be8d3 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sunday Love Dashboard</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --love-pink: #f472b6;
+      --love-purple: #a21caf;
+      --love-ink: #2f1a2c;
+      --love-muted: #6b3f61;
+      --love-card: #ffffff;
+      --love-bg: linear-gradient(135deg, #fff0f6 0%, #ffe8f0 45%, #fde2ff 100%);
+      --love-border: #f0c3df;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Inter", "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--love-bg);
+      color: var(--love-ink);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 28px 20px 10px;
+    }
+
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .hero {
+      background: var(--love-card);
+      border-radius: 18px;
+      padding: 18px 22px;
+      box-shadow: 0 12px 28px rgba(128, 20, 90, 0.12);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-title span {
+      font-size: 40px;
+    }
+
+    .hero-title h1 {
+      margin: 0 0 6px;
+      font-size: 30px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-title p {
+      margin: 0;
+      color: var(--love-muted);
+    }
+
+    .hero-date {
+      font-weight: 700;
+      color: var(--love-purple);
+    }
+
+    .card {
+      background: var(--love-card);
+      border-radius: 18px;
+      padding: 18px 22px;
+      box-shadow: 0 12px 28px rgba(128, 20, 90, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--love-muted);
+    }
+
+    .field-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--love-muted);
+      min-width: 200px;
+    }
+
+    select,
+    input[type="text"],
+    textarea {
+      border-radius: 12px;
+      border: 1px solid var(--love-border);
+      padding: 10px 12px;
+      font-size: 15px;
+      background: #fff7fb;
+      color: var(--love-ink);
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button,
+    .ghost-link {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--love-pink);
+      color: #fff;
+      transition: transform 0.08s ease, box-shadow 0.12s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button.secondary,
+    .ghost-link {
+      background: #fff;
+      color: var(--love-purple);
+      border: 1px solid var(--love-border);
+      box-shadow: none;
+    }
+
+    button:active,
+    .ghost-link:active {
+      transform: translateY(1px);
+    }
+
+    .prompt-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .prompt-card {
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #f7c9e2;
+      background: #fffafc;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .prompt-card h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .prompt-output {
+      font-size: 14px;
+      color: var(--love-muted);
+      min-height: 60px;
+      white-space: pre-wrap;
+    }
+
+    .saved-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .saved-list li {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px dashed var(--love-border);
+      background: #fff;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .love-meter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .love-meter input[type="range"] {
+      flex: 1 1 220px;
+    }
+
+    .meter-message {
+      font-weight: 700;
+      color: var(--love-purple);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: rgba(33, 37, 41, 0.95);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 22px 16px 8px;
+      }
+
+      .shell {
+        padding: 0 16px 32px;
+      }
+
+      .hero-title h1 {
+        font-size: 26px;
+      }
+
+      .button-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <div class="hero">
+        <div class="hero-title">
+          <span>💗</span>
+          <div>
+            <h1>Sunday Love Dashboard</h1>
+            <p>Plan a tender moment, write a note, and keep your love rituals grounded.</p>
+          </div>
+        </div>
+        <div class="hero-date">
+          <span id="loveDateLabel">Sunday</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="card">
+      <h2>Love Note Builder</h2>
+      <p>Capture a note for her voice, a soft delivery, and today’s love level.</p>
+      <div class="field-row">
+        <label>
+          Voice
+          <select id="loveNoteVoice">
+            <option value="Me">Me</option>
+            <option value="We">We</option>
+            <option value="Future Us">Future Us</option>
+          </select>
+        </label>
+        <label>
+          Delivery
+          <select id="loveNoteDelivery">
+            <option value="soft">Soft + warm</option>
+            <option value="romantic">Romantic + poetic</option>
+            <option value="playful">Playful + cute</option>
+            <option value="steady">Steady + committed</option>
+          </select>
+        </label>
+        <label>
+          One word intention
+          <input type="text" id="loveIntention" placeholder="Ex: safe, playful, devoted" />
+        </label>
+      </div>
+      <textarea id="loveNoteInput" placeholder="Write the love note here..."></textarea>
+      <div class="love-meter">
+        <input type="range" id="loveMeterInput" min="1" max="10" value="8" />
+        <span class="meter-message" id="loveMeterMessage"></span>
+      </div>
+      <div class="button-row">
+        <button type="button" id="loveInspireBtn">✨ Inspire a note</button>
+        <button type="button" class="secondary" id="loveCopyBtn">Copy note</button>
+        <a class="ghost-link" id="loveEmailBtn" href="mailto:?subject=A love note for you" target="_blank">Email</a>
+        <a class="ghost-link" id="loveTextBtn" href="sms:?" target="_blank">Text</a>
+        <button type="button" class="secondary" id="loveSaveBtn">Save to Sunday list</button>
+        <button type="button" class="secondary" id="loveClearBtn">Clear</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Love Prompts</h2>
+      <p>Tap for quick ideas or add them directly into your note.</p>
+      <div class="prompt-grid" id="promptGrid"></div>
+    </section>
+
+    <section class="card">
+      <h2>Saved Sunday Notes</h2>
+      <p>Short archive of the most recent notes you saved.</p>
+      <ul class="saved-list" id="loveSavedList"></ul>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const prompts = {
+      noteIdeas: [
+        'Write a “three tiny moments” note: three small things she did this week that made you love her more.',
+        'Offer a future memory: describe a date night you want to plan, with sensory details and a sweet promise.',
+        'List five ways she makes you feel safe, seen, and wanted—and why those are rare and precious.',
+        'Write a “thank you for choosing us” note that highlights her effort when things were hard.'
+      ],
+      conversationStarters: [
+        'When do you feel most loved by me lately—and what can I do more of in that moment?',
+        'What’s one new ritual we could try to deepen our connection on busy weeks?',
+        'What’s a memory you want to relive together, and how can we recreate it?',
+        'How can we make conflict feel safer and more tender when it shows up?'
+      ],
+      commitmentReminders: [
+        'Show up even when it’s hard: pause, breathe, and respond with love before reacting.',
+        'We’re a team: no scorekeeping, just honest repair and genuine care.',
+        'Protect the bond: speak about each other with pride and loyalty.',
+        'Let love lead: prioritize empathy, not ego.'
+      ],
+      encouragements: [
+        'We are stronger than the tough moments because we keep choosing each other.',
+        'You are my peace and my favorite person to come home to.',
+        'We’re building something lasting—and I’m proud of us.',
+        'We can do hard things and still stay kind.'
+      ]
+    };
+
+    const promptLabels = {
+      noteIdeas: 'Love note idea',
+      conversationStarters: 'Conversation starter',
+      commitmentReminders: 'Commitment reminder',
+      encouragements: 'Encouragement'
+    };
+
+    const noteInput = document.getElementById('loveNoteInput');
+    const noteVoice = document.getElementById('loveNoteVoice');
+    const noteDelivery = document.getElementById('loveNoteDelivery');
+    const noteIntention = document.getElementById('loveIntention');
+    const loveMeterInput = document.getElementById('loveMeterInput');
+    const loveMeterMessage = document.getElementById('loveMeterMessage');
+    const loveDateLabel = document.getElementById('loveDateLabel');
+    const promptGrid = document.getElementById('promptGrid');
+    const savedList = document.getElementById('loveSavedList');
+    const toastEl = document.getElementById('toast');
+
+    const storageKey = 'sundayLove.savedNotes';
+
+    const toast = (message) => {
+      toastEl.textContent = message;
+      toastEl.classList.add('show');
+      window.setTimeout(() => toastEl.classList.remove('show'), 2200);
+    };
+
+    const pickRandom = (list) => list[Math.floor(Math.random() * list.length)];
+
+    const setDateLabel = () => {
+      loveDateLabel.textContent = new Date().toLocaleDateString(undefined, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric'
+      });
+    };
+
+    const updateMeterMessage = () => {
+      const value = Number(loveMeterInput.value || 0);
+      const label = value >= 9 ? 'absolutely head-over-heels'
+        : value >= 7 ? 'deep and devoted'
+          : value >= 5 ? 'steady and warm'
+            : value >= 3 ? 'gentle and growing'
+              : 'tender and rebuilding';
+      loveMeterMessage.textContent = `Love level: ${value}/10 — ${label}.`;
+    };
+
+    const buildPromptCards = () => {
+      promptGrid.innerHTML = '';
+      Object.keys(prompts).forEach((key) => {
+        const card = document.createElement('div');
+        card.className = 'prompt-card';
+        const heading = document.createElement('h3');
+        heading.textContent = promptLabels[key];
+        const output = document.createElement('div');
+        output.className = 'prompt-output';
+        output.textContent = pickRandom(prompts[key]);
+
+        const actions = document.createElement('div');
+        actions.className = 'button-row';
+
+        const refreshBtn = document.createElement('button');
+        refreshBtn.type = 'button';
+        refreshBtn.className = 'secondary';
+        refreshBtn.textContent = 'New idea';
+        refreshBtn.addEventListener('click', () => {
+          output.textContent = pickRandom(prompts[key]);
+        });
+
+        const addBtn = document.createElement('button');
+        addBtn.type = 'button';
+        addBtn.textContent = 'Add to note';
+        addBtn.addEventListener('click', () => {
+          const text = output.textContent;
+          if (!text) return;
+          noteInput.value = noteInput.value.trim()
+            ? `${noteInput.value.trim()}
+
+${text}`
+            : text;
+          updateCommunicationLinks();
+          toast('Added to note.');
+        });
+
+        actions.append(refreshBtn, addBtn);
+        card.append(heading, output, actions);
+        promptGrid.appendChild(card);
+      });
+    };
+
+    const buildInspiration = () => {
+      const voice = noteVoice.value || 'Me';
+      const delivery = noteDelivery.value || 'soft';
+      const intention = noteIntention.value.trim();
+      const idea = pickRandom(prompts.noteIdeas);
+      const encouragement = pickRandom(prompts.encouragements);
+      const commitment = pickRandom(prompts.commitmentReminders);
+      const conversation = pickRandom(prompts.conversationStarters);
+      const deliveryLine = delivery === 'playful'
+        ? 'Here’s a playful little love note from the heart:'
+        : delivery === 'romantic'
+          ? 'Here’s a romantic, poetic note just for you:'
+          : delivery === 'steady'
+            ? 'Here’s a steady, committed love note:'
+            : 'Here’s a soft, warm love note:';
+
+      return [
+        `${voice} →`,
+        deliveryLine,
+        idea,
+        encouragement,
+        `We stay 100% in this together: ${commitment}`,
+        `Conversation starter for us: ${conversation}`,
+        intention ? `Intention for today: ${intention}.` : ''
+      ].filter(Boolean).join('\n\n');
+    };
+
+    const updateCommunicationLinks = () => {
+      const text = noteInput.value.trim();
+      const body = encodeURIComponent(text);
+      const subject = encodeURIComponent('A love note for you');
+      document.getElementById('loveEmailBtn').href = `mailto:?subject=${subject}&body=${body}`;
+      document.getElementById('loveTextBtn').href = `sms:?&body=${body}`;
+    };
+
+    const renderSavedNotes = () => {
+      const entries = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      savedList.innerHTML = '';
+      if (!entries.length) {
+        const empty = document.createElement('li');
+        empty.textContent = 'No saved Sunday notes yet. Save one to start your love archive.';
+        savedList.appendChild(empty);
+        return;
+      }
+      entries.slice(0, 6).forEach((entry) => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.date} — ${entry.text}`;
+        savedList.appendChild(li);
+      });
+    };
+
+    const saveNote = () => {
+      const text = noteInput.value.trim();
+      if (!text) {
+        toast('Write a love note first.');
+        return;
+      }
+      const entries = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      entries.unshift({
+        date: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
+        text
+      });
+      localStorage.setItem(storageKey, JSON.stringify(entries.slice(0, 12)));
+      renderSavedNotes();
+      toast('Saved to Sunday list.');
+    };
+
+    document.getElementById('loveInspireBtn').addEventListener('click', () => {
+      noteInput.value = buildInspiration();
+      updateCommunicationLinks();
+      toast('Inspired note ready.');
+    });
+
+    document.getElementById('loveCopyBtn').addEventListener('click', async () => {
+      const text = noteInput.value.trim();
+      if (!text) {
+        toast('Nothing to copy yet.');
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        toast('Copied love note.');
+      } catch (err) {
+        console.error(err);
+        toast('Copy failed. Try selecting the text manually.');
+      }
+    });
+
+    document.getElementById('loveSaveBtn').addEventListener('click', saveNote);
+    document.getElementById('loveClearBtn').addEventListener('click', () => {
+      noteInput.value = '';
+      updateCommunicationLinks();
+    });
+
+    noteInput.addEventListener('input', updateCommunicationLinks);
+    loveMeterInput.addEventListener('input', updateMeterMessage);
+
+    setDateLabel();
+    updateMeterMessage();
+    buildPromptCards();
+    renderSavedNotes();
+    updateCommunicationLinks();
+  </script>
+</body>
+</html>
